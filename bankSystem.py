@@ -135,11 +135,11 @@ class account(ABC):
 
     #take loan
     def takeLoans(self,bank,amount):
-         if bank.loanFacility==True and amount>=0 and bank.totalBalance>=amount and self.loanCount<=2:
+         if bank.loanFacility==True and amount>=0 and bank.totalBalance>=amount and self.loanCount<2:
             self.loanAmount+=amount
             self.loanCount+=1
             bank.totalLoan+=amount
-            print(f"Loan took ${loanAmount}.")
+            print(f"Loan took ${self.loanAmount}.")
             
             transaction={}
             self.transactionId+=1
@@ -209,8 +209,8 @@ while True:
                 print("1: Create Account")
                 print("2: Delete Account")
                 print("3: Show Users")
-                print("4: Check Total Balance")
-                print("5: Check Total Loan")
+                print("4: Show Total Balance")
+                print("5: Show Total Loan")
                 print("6: On Loan facility")
                 print("7: Off Loan facility")
                 print("8: Log Out")
@@ -240,15 +240,15 @@ while True:
                 elif option==8:
                     currentUser=None
                 else:
-                    print(f"invalid number")
+                    print(f"Invalid number")
                     
             #if admin na hoi er mane user
             else:
                 print("Options:\n")
                 print("1: Deposit")
                 print("2: Withdraw")
-                print("3: Check Balance")
-                print("4: Check Transactions History")
+                print("3: Show Balance")
+                print("4: Show Transactions History")
                 print("5: Take Loan")
                 print("6: Transfer")
                 print("7: Logout")   
@@ -282,4 +282,4 @@ while True:
                     currentUser=None
                     
                 else:
-                    print("invalid number")
+                    print("Invalid number")
