@@ -1,28 +1,28 @@
 from abc import ABC, abstractmethod
 #basic info which will bank have
 class bank:
+    accounts=[]
     
     def __init__(self,name):
         self.name=name
         self.totalBalance = 0
-        self.accounts=[]
         self.totalLoan=0
         self.loanFacility=True
     
     #creating an account func which will come fom account class
     def createAccount(self,name,email,address,type):
         acc=account(name,email,address,type)
-        self.accounts.append(acc)
+        bank.accounts.append(acc)
     
     #delete account which will be given from admin
-    def deleteAccount(self):
-        for account in self.accounts:
-            if account.accountId==accounts.accountsID:
-                self.accounts.remove(account)
+    def deleteAccount(self,accId):
+        for account in bank.accounts:
+            if account.accountId==accId:
+                bank.accounts.remove(account)
                 del account
                 return
-            else:
-                print("Can't find the account!")
+   
+        print("Can't find the account!")
         
     #All user showing
     def allUser(self):
@@ -67,6 +67,7 @@ class account(ABC):
         self.balance=0
         self.transactions=[]
         self.transactionId=self.accountId*10
+        
     
     #he/she can check balance:
     def checkBalance(self):
@@ -135,7 +136,7 @@ class account(ABC):
 
     #take loan
     def takeLoans(self,bank,amount):
-         if bank.loanFacility==True and amount>=0 and bank.totalBalance>=amount and self.loanCount<2:
+         if bank.loanFacility==True and amount>=0 and bank.totalBalance>=amount and self.loanCount<=1:
             self.loanAmount+=amount
             self.loanCount+=1
             bank.totalLoan+=amount
@@ -148,6 +149,9 @@ class account(ABC):
             transaction['amount']=amount
             
             self.transactions.append(transaction)
+         
+         elif self.loanCount==2:
+            print("can't take anymore")
     #transaction history
     def transactionsHistory(self):
         print(f"Transaction History :{self.name}:")
@@ -225,7 +229,7 @@ while True:
                     bank.createAccount(name,email,addr,type)
                        
                 elif option==2:
-                    accId=int(input("\tEnter Account ID:"))
+                    accId=int(input("Enter Account ID:"))
                     bank.deleteAccount(accId)  
                 elif option==3:
                     bank.allUser()
@@ -240,7 +244,7 @@ while True:
                 elif option==8:
                     currentUser=None
                 else:
-                    print(f"Invalid number")
+                    print(f"invalid number")
                     
             #if admin na hoi er mane user
             else:
@@ -282,4 +286,4 @@ while True:
                     currentUser=None
                     
                 else:
-                    print("Invalid number")
+                    print("invalid number")
